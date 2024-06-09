@@ -26,7 +26,7 @@ public class BallManager : MonoBehaviour
         {
             _ballLife--;
         }
-        else if (_ballLife == 0) 
+        else if (_ballLife == 0)
         {
             _pinballManager.PinballRestart();
         }
@@ -40,10 +40,21 @@ public class BallManager : MonoBehaviour
 
     public void BallStartForce(InputAction.CallbackContext context)
     {
+        StartCoroutine(HatchWait());
         transform.position = _startPosition.position;
         transform.rotation = _startPosition.rotation;
         transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
         int force = 4000;
         transform.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Force);
+    }
+
+    private IEnumerator HatchWait()
+    {
+        if (_ballDeath = true)
+        {
+            yield return new WaitForSeconds(2);
+            _hatch.SetActive(true);
+        }
+ 
     }
 }
